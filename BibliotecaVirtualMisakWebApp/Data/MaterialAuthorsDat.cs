@@ -22,7 +22,7 @@ namespace Data
             objAdapter.SelectCommand = objSelectCmd;
             objAdapter.Fill(objData);
             objPer.closeConnection();
-            return objData; 
+            return objData;
         }
 
         // Método para insertar un nuevo registro en la relación entre Materiales Educativos y Autores
