@@ -26,6 +26,21 @@ namespace Data
                 return objData;
             }
 
+            // Método DDL para mostrar los PurchaseRequest por id y su ticket
+            public DataSet showPurchaseRequestDDL()
+            {
+                MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+                DataSet objData = new DataSet();
+                MySqlCommand objSelectCmd = new MySqlCommand();
+                objSelectCmd.Connection = objPer.openConnection();
+                objSelectCmd.CommandText = "procSelectPurchase_requestDDL"; // nombre del procedimiento almacenado
+                objSelectCmd.CommandType = CommandType.StoredProcedure;
+                objAdapter.SelectCommand = objSelectCmd;
+                objAdapter.Fill(objData);
+                objPer.closeConnection();
+                return objData;
+            }
+
             // Método para guardar un PurchaseRequest
             public bool savePurchaserequest(string _v_solic_ticket, DateTime _v_solic_fecha, int _v_tbl_usu_id)
             {
