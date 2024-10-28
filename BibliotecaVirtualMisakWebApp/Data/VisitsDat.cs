@@ -27,6 +27,21 @@ namespace Data
             return objData;
         }
 
+        // Método DDL para mostrar con id y fecha de ingreso
+        public DataSet showVisitsDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "procSelectVisitsDDL"; // nombre del procedimiento almacenado
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
         // Método para guardar una nueva visita
         public bool saveAuthor(DateTime _fecha_ingreso,  TimeSpan _duracion, int _usu_id)
         {
