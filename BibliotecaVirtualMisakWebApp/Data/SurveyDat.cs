@@ -26,6 +26,20 @@ namespace Data
             return objData;
         }
 
+        // Método para mostrar unicamente el id y la descripcion de la pregunta
+        public DataSet showSurveysDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "procSelectSurveyDDL"; // nombre del procedimiento almacenado
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
         // Método para guardar una nueva Encuesta
         public bool saveSurvey(string _descripcionPregunta, int _usu_id)
         {
