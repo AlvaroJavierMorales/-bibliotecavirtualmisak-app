@@ -24,6 +24,21 @@ namespace Data
             objPer.closeConnection();
             return objData;
         }
+        // Método para mostrar unicamente el id y el nombre de la categoria
+        public DataSet showCategoriesDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "procSelectCategoryDDL"; // Nombre actualizado del procedimiento almacenado
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
 
         // Método para mostrar id y nombre de Categorías
         public DataSet showCategoriesDDL()
