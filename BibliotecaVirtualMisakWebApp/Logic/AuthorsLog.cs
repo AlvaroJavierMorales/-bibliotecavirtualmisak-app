@@ -12,7 +12,7 @@ namespace Logic
     {
         AuthorsDat objAut = new AuthorsDat(); // Crea una instancia de la clase AuthorsDat llamada objAut
 
-        public DataSet showAuthors() // Método que muestra todos los autores, retorna un DataSet
+        public DataSet showAuthors() // Método que muestra todos los autores, retorna un DataSet.
         {
             return objAut.showAuthors();
         }
