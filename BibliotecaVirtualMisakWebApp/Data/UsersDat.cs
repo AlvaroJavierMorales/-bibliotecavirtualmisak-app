@@ -26,6 +26,21 @@ namespace Data
             return objData;
         }
 
+        // Método para mostrar solamente el id y el nombre completo  los Usuarios por DDL
+        public DataSet showUsersDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "procSelectUsersDDL"; // nombre del procedimiento almacenado
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
         // Método para guardar un nuevo Usuario
         public bool saveUser(string _nombre, string _apellido, string _correo, string _contrasena, string _salt, string _rol, string _nivelEstudios)
         {
