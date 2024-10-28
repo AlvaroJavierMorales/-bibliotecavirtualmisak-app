@@ -24,9 +24,23 @@ namespace Data
                 objPer.closeConnection();
                 return objData;
             }
+        // Método para mostrar el id y nombre de las Editoriales
+        public DataSet showEditorialsDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
 
-            // Método para insertar una nueva Editorial
-            public bool saveEditorial(string _nombre, string _ciudad, int _telefono, string _correo)
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "procSelectEditorialDDL"; // Nombre actualizado del procedimiento almacenado
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+        // Método para insertar una nueva Editorial
+        public bool saveEditorial(string _nombre, string _ciudad, int _telefono, string _correo)
             {
                 bool executed = false;
                 int row;
