@@ -14,9 +14,9 @@ namespace Logic
         return objSurveyDat.showSurveys();
     }
     // Método para mostrar unicamente el id y la descripcion de la pregunta
-    public DataSet showSurveys()
+    public DataSet showSurveysDDL()
     {
-        return objSurveyDat.showSurveys();
+        return objSurveyDat.showSurveysDDL();
     }
     // Método para guardar una nueva Encuesta
     public bool saveSurvey(string _descripcionPregunta, int _usu_id)
