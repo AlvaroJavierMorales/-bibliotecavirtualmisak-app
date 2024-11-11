@@ -65,6 +65,42 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\BouncyCastle.Cryptography.dll" />
+    <Content Include="bin\BouncyCastle.Cryptography.xml" />
+    <Content Include="bin\Data.dll" />
+    <Content Include="bin\Data.pdb" />
+    <Content Include="bin\Google.Protobuf.dll" />
+    <Content Include="bin\Google.Protobuf.pdb" />
+    <Content Include="bin\Google.Protobuf.xml" />
+    <Content Include="bin\K4os.Compression.LZ4.dll" />
+    <Content Include="bin\K4os.Compression.LZ4.Streams.dll" />
+    <Content Include="bin\K4os.Compression.LZ4.Streams.xml" />
+    <Content Include="bin\K4os.Compression.LZ4.xml" />
+    <Content Include="bin\K4os.Hash.xxHash.dll" />
+    <Content Include="bin\K4os.Hash.xxHash.xml" />
+    <Content Include="bin\Logic.dll" />
+    <Content Include="bin\Logic.pdb" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\MySql.Data.dll" />
+    <Content Include="bin\MySql.Data.xml" />
+    <Content Include="bin\System.Buffers.dll" />
+    <Content Include="bin\System.Buffers.xml" />
+    <Content Include="bin\System.IO.Pipelines.dll" />
+    <Content Include="bin\System.IO.Pipelines.xml" />
+    <Content Include="bin\System.Memory.dll" />
+    <Content Include="bin\System.Memory.xml" />
+    <Content Include="bin\System.Numerics.Vectors.dll" />
+    <Content Include="bin\System.Numerics.Vectors.xml" />
+    <Content Include="bin\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="bin\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="bin\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\System.Threading.Tasks.Extensions.xml" />
+    <Content Include="bin\ZstdSharp.dll" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\Logic.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\Logic.dll" />
+    <Content Include="obj\Debug\Logic.pdb" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -80,16 +116,23 @@
     <Compile Include="MaterialAuthorsDat.cs" />
     <Compile Include="MaterialAuthorsLogic.cs" />
     <Compile Include="MaterialEduDat.cs" />
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseRequestDat.cs" />
     <Compile Include="PurchaseRequestLog.cs" />
     <Compile Include="SurveyDat.cs" />
     <Compile Include="SurveyLogic.cs" />
+    <Compile Include="UserDat.cs" />
     <Compile Include="UsersLog.cs" />
+    <Compile Include="VisitsDat.cs" />
     <Compile Include="VisitsLog.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="bin\Data.dll.config" />
+    <Content Include="bin\Logic.dll.config" />
+    <Content Include="obj\Debug\Logic.csproj.AssemblyReference.cache" />
+    <Content Include="obj\Debug\Logic.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\Logic.csproj.Up2Date" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -99,7 +142,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <PropertyGroup>
