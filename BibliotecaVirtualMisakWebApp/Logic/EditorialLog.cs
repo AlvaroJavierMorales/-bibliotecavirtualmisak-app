@@ -20,6 +20,7 @@ namespace Logic
         public DataSet showEditorialsDDL()
         {
             return objEdit.showEditorialsDDL();
+        }
 
             // Método para g una nueva Editorial
 
@@ -41,6 +42,6 @@ namespace Logic
                 return objEdit.deleteEditorial(_idEditorial);
             }
 
-        }
     }
+    
 }
