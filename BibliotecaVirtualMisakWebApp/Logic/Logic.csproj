@@ -67,14 +67,22 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnswerDat.cs" />
     <Compile Include="AnswerLogic.cs" />
+    <Compile Include="AuthorsDat.cs" />
     <Compile Include="AuthorsLog.cs" />
+    <Compile Include="CategoryDat.cs" />
     <Compile Include="CategoryLog.cs" />
+    <Compile Include="EditorialDat.cs" />
     <Compile Include="EditorialLog.cs" />
     <Compile Include="EducationMatLog.cs" />
+    <Compile Include="MaterialAuthorsDat.cs" />
     <Compile Include="MaterialAuthorsLogic.cs" />
+    <Compile Include="MaterialEduDat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseRequestDat.cs" />
     <Compile Include="PurchaseRequestLog.cs" />
+    <Compile Include="SurveyDat.cs" />
     <Compile Include="SurveyLogic.cs" />
     <Compile Include="UsersLog.cs" />
     <Compile Include="VisitsLog.cs" />
