@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -12,7 +14,7 @@ namespace Data
             // Método para mostrar todas las Editoriales
             public DataSet showEditorials()
             {
-                MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            MySql.Data.MySqlClient.MySqlDataAdapter objAdapter = new MySqlDataAdapter();
                 DataSet objData = new DataSet();
 
                 MySqlCommand objSelectCmd = new MySqlCommand();
@@ -129,7 +131,6 @@ namespace Data
                 objPer.closeConnection();
                 return executed;
             }
-        }
-
     }
+
 }

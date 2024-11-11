@@ -1,9 +1,9 @@
-﻿using System;
+﻿using System.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data;
-using Data;
+
 namespace Logic
 {
     public class EditorialLog
@@ -19,24 +19,28 @@ namespace Logic
         // Método para mostrar las editoriales en formato DDL
         public DataSet showEditorialsDDL()
         {
-            return objEdit.showEditorialsDDL(); 
+            return objEdit.showEditorialsDDL();
 
-        // Método para guardar una nueva Editorial
-        public bool saveEditorial(string _nombre, string _ciudad, int _telefono, string _correo)
-        {
-            return objEdit.saveEditorial(_nombre, _ciudad, _telefono, _correo);
-        }
+            // Método para g una nueva Editorial
 
-        // Método para actualizar una Editorial
-        public bool updateEditorial(int _idEditorial, string _nombre, string _ciudad, int _telefono, string _correo)
-        {
-            return objEdit.updateEditorial(_idEditorial, _nombre, _ciudad, _telefono, _correo);
-        }
+            public bool saveEditorial(string _nombre, string _ciudad, int _telefono, string _correo)
+            {
+                return objEdit.saveEditorial(_nombre, _ciudad, _telefono, _correo);
+            }
 
-        // Método para eliminar una Editorial
-        public bool deleteEditorial(int _idEditorial)
-        {
-            return objEdit.deleteEditorial(_idEditorial);
+            // Método para actualizar una Editorial
+
+            public bool updateEditorial(int _idEditorial, string _nombre, string _ciudad, int _telefono, string _correo)
+            {
+                return objEdit.updateEditorial(_idEditorial, _nombre, _ciudad, _telefono, _correo);
+            }
+
+            // Método para eliminar una Editorial
+            public bool deleteEditorial(int _idEditorial)
+            {
+                return objEdit.deleteEditorial(_idEditorial);
+            }
+
         }
     }
 }
