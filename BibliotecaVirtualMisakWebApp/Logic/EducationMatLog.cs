@@ -33,5 +33,15 @@ namespace Logic
         {
             return objMatEdu.deleteMaterial(_idMaterial, _editorialId, _categoriaId, _solicitudCompraId, _visitasId);
         }
+
+        public bool showMaterialEducativo(int id, string titulo, DateTime anoPublicacion, string urlDescarga, double precio, int cantidad, int fkEditorial, int fkCategoria, int fkSolicitudCompra, int fkVisita)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool saveMaterial(string titulo, DateTime anoPublicacion, string urlDescarga, double precio, int cantidad, int fkEditorial, int fkCategoria, int fkSolicitudCompra, int fkVisita)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
