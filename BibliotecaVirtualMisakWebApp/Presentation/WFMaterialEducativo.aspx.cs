@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace Presentation
 {
-    public partial class Main : System.Web.UI.MasterPage
+    public partial class WFMaterialEducativo : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

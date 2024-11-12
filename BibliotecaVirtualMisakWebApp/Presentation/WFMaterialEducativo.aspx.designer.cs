@@ -11,7 +11,7 @@ namespace Presentation
 {
 
 
-    public partial class Inicio
+    public partial class WFMaterialEducativo
     {
     }
 }
