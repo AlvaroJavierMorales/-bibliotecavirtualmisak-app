@@ -1,8 +1,8 @@
-﻿using System;
+﻿using System.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Data;
 
 namespace Logic
 {
@@ -38,3 +38,4 @@ namespace Logic
             return objUserDat.deleteUser(_idUser);
         }
     }
+}

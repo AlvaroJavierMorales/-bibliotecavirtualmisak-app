@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -7,8 +9,7 @@ namespace Data
 {
     public class PurchaseRequestDat
     {
-        public class PurchaseRequestDat
-        {
+       
             Persistence objPer = new Persistence();
 
             // Método para mostrar todos los PurchaseRequest
@@ -52,7 +53,7 @@ namespace Data
                 objSelectCmd.CommandType = CommandType.StoredProcedure;
                 objSelectCmd.Parameters.Add("_v_solic_ticket", MySqlDbType.VarChar).Value = _v_solic_ticket;
                 objSelectCmd.Parameters.Add("_v_solic_fecha", MySqlDbType.DateTime).Value = _v_solic_fecha;
-                objSelectCmd.Parameters.Add("_v_tbl_usu_id", MySqlDbType.int32).Value = _v_tbl_usu_id;
+                objSelectCmd.Parameters.Add("_v_tbl_usu_id", MySqlDbType.Int32).Value = _v_tbl_usu_id;
                 try
                 {
                     row = objSelectCmd.ExecuteNonQuery();
@@ -78,10 +79,10 @@ namespace Data
                 objSelectCmd.Connection = objPer.openConnection();
                 objSelectCmd.CommandText = "procUpdatePurchase_request"; // nombre del procedimiento almacenado
                 objSelectCmd.CommandType = CommandType.StoredProcedure;
-                objSelectCmd.Parameters.Add("_v_solic_id", MySqlDbType.int32).Value = _v_solic_id; //Tipo int para el id
+                objSelectCmd.Parameters.Add("_v_solic_id", MySqlDbType.Int32).Value = _v_solic_id; //Tipo int para el id
                 objSelectCmd.Parameters.Add("_v_solic_ticket", MySqlDbType.VarChar).Value = _v_solic_ticket; // Tipo VarChar para solicitud de tiquete
                 objSelectCmd.Parameters.Add("_v_solic_fecha", MySqlDbType.DateTime).Value = _v_solic_fecha; // Tipo DateTime para la fecha solicitud
-                objSelectCmd.Parameters.Add("_v_tbl_usu_id", MySqlDbType.int32).Value = _v_tbl_usu_id; // Tipo int para el is de usuarios
+                objSelectCmd.Parameters.Add("_v_tbl_usu_id", MySqlDbType.Int32).Value = _v_tbl_usu_id; // Tipo int para el is de usuarios
 
 
                 try
@@ -109,7 +110,7 @@ namespace Data
                 objSelectCmd.Connection = objPer.openConnection();
                 objSelectCmd.CommandText = "procDeletePurchase_request"; // nombre del procedimiento almacenado
                 objSelectCmd.CommandType = CommandType.StoredProcedure;
-                objSelectCmd.Parameters.Add("v_solic_id", MySqlDbType.int32).Value = _v_solic_id;
+                objSelectCmd.Parameters.Add("v_solic_id", MySqlDbType.Int32).Value = _v_solic_id;
                 try
                 {
                     row = objSelectCmd.ExecuteNonQuery();
@@ -128,5 +129,5 @@ namespace Data
             }
 
         }
-    }
+    
 }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -39,7 +41,7 @@ namespace Data
                 objInsertCmd.Parameters.Add("v_mat_ano_publicacion", MySqlDbType.Date).Value = _anoPublicacion;
                 objInsertCmd.Parameters.Add("v_mat_url_descarga", MySqlDbType.Text).Value = _urlDescarga;
                 objInsertCmd.Parameters.Add("v_mat_precio", MySqlDbType.Decimal).Value = _precio;
-                objInsertCmd.Parameters.Add("v_mat_cantidad", MySqlDbType.SmallInt).Value = _cantidad;
+                objInsertCmd.Parameters.Add("v_mat_cantidad", MySqlDbType.Int32).Value = _cantidad;
                 objInsertCmd.Parameters.Add("v_tbl_editorial_edi_id", MySqlDbType.Int32).Value = _editorialId;
                 objInsertCmd.Parameters.Add("v_tbl_categorias_cat_id", MySqlDbType.Int32).Value = _categoriaId;
                 objInsertCmd.Parameters.Add("v_tbl_solicitud_compra_solic_id", MySqlDbType.Int32).Value = _solicitudCompraId;
@@ -76,7 +78,7 @@ namespace Data
                 objUpdateCmd.Parameters.Add("v_mat_ano_publicacion", MySqlDbType.Date).Value = _anoPublicacion;
                 objUpdateCmd.Parameters.Add("v_mat_url_descarga", MySqlDbType.Text).Value = _urlDescarga;
                 objUpdateCmd.Parameters.Add("v_mat_precio", MySqlDbType.Decimal).Value = _precio;
-                objUpdateCmd.Parameters.Add("v_mat_cantidad", MySqlDbType.SmallInt).Value = _cantidad;
+                objUpdateCmd.Parameters.Add("v_mat_cantidad", MySqlDbType.Int32).Value = _cantidad;
                 objUpdateCmd.Parameters.Add("v_tbl_editorial_edi_id", MySqlDbType.Int32).Value = _editorialId;
                 objUpdateCmd.Parameters.Add("v_tbl_categorias_cat_id", MySqlDbType.Int32).Value = _categoriaId;
                 objUpdateCmd.Parameters.Add("v_tbl_solicitud_compra_solic_id", MySqlDbType.Int32).Value = _solicitudCompraId;
@@ -131,5 +133,5 @@ namespace Data
             }
         }
 
-    }
+    
 }

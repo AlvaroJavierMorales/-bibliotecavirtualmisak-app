@@ -14,14 +14,5 @@ namespace Presentation
 
         }
 
-        protected void BtnSave_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void BtnUpdate_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

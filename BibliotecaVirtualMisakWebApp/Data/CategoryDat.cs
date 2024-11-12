@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -25,7 +27,7 @@ namespace Data
             return objData;
         }
         // Método para mostrar unicamente el id y el nombre de la categoria
-        public DataSet showCategoriesDDL()
+        public DataSet ShowCategoriesDDL()
         {
             MySqlDataAdapter objAdapter = new MySqlDataAdapter();
             DataSet objData = new DataSet();
@@ -143,3 +145,4 @@ namespace Data
             return executed;
         }
     }
+}
