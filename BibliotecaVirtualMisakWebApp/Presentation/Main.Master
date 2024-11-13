@@ -12,13 +12,14 @@
     <form id="form1" runat="server">
         <%-- Menú de navegación con enlaces a cada tabla --%>
         <nav>
-            <a href="index.aspx">Inicio</a>
+            <a href="Index.aspx">Inicio</a>
             <a href="WFCategorias.aspx">Categorías</a>
             <a href="WFAutores.aspx">Autores</a>
             <a href="WFEditorial.aspx">Editoriales</a>
             <a href="WFMaterialEducativo.aspx">Material Educativo</a>
             <a href="WFVisitas.aspx">Visitas</a>
-            <a href="WFUsuarios.aspx">Usuarios</a>
+            <a href="WFRegistroUsuarios.aspx">Registro Usuarios</a>
+            <a href="WFGestionUsuarios.aspx">Gestion Usuarios</a>
             <a href="WFSolicitudCompra.aspx">Solicitudes de Compra</a>
             <a href="WFEncuesta.aspx">Encuestas</a>
             <a href="WFRespuestas.aspx">Respuestas</a>
