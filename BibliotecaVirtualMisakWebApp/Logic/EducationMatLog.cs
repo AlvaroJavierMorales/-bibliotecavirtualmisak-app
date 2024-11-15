@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Data;
 
 namespace Logic
 {
@@ -29,29 +30,9 @@ namespace Logic
         }
 
         // Método para eliminar un Material Educativo
-        public bool deleteMaterial(int _id, int _editorialId, int _categoriaId, int _solicitudCompraId, int _visitasId)
+        public bool deleteMaterial(int _idMaterial, int _editorialId, int _categoriaId, int _solicitudCompraId, int _visitasId)
         {
-            return objMatEdu.deleteMaterial(_id, _editorialId, _categoriaId, _solicitudCompraId, _visitasId);
-        }
-
-        public bool showMaterialEducativo(int id, string titulo, DateTime anoPublicacion, string urlDescarga, double precio, int cantidad, int fkEditorial, int fkCategoria, int fkSolicitudCompra, int fkVisita)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool saveMaterial(string titulo, DateTime anoPublicacion, string urlDescarga, double precio, int cantidad, int fkEditorial, int fkCategoria, int fkSolicitudCompra, int fkVisita)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool updateMaterial(int idMaterial, string titulo, DateTime anoPublicacion, string urlDescarga, double precio, int cantidad, int editorialId, int categoriaId, int solicitudCompraId, int visitasId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool deleteMaterial(int materialId)
-        {
-            throw new NotImplementedException();
+            return objMatEdu.deleteMaterial(_idMaterial, _editorialId, _categoriaId, _solicitudCompraId, _visitasId);
         }
     }
 }
