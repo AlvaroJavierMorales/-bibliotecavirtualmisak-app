@@ -15,13 +15,13 @@ namespace Presentation
     {
 
         /// <summary>
-        /// Control TBId.
+        /// Control HFPurchaId.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TBId;
+        protected global::System.Web.UI.WebControls.HiddenField HFPurchaId;
 
         /// <summary>
         /// Control Label1.
@@ -69,13 +69,13 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.Label Label3;
 
         /// <summary>
-        /// Control DDLUser.
+        /// Control DDLUsers.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLUser;
+        protected global::System.Web.UI.WebControls.DropDownList DDLUsers;
 
         /// <summary>
         /// Control BtnSave.
@@ -94,6 +94,15 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnUpdate;
+
+        /// <summary>
+        /// Control LblMsj.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblMsj;
 
         /// <summary>
         /// Control GVRequests.

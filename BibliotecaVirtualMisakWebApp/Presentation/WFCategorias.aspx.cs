@@ -1,5 +1,7 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Data;
+using System.Security.Cryptography;
 using System.Web.UI.WebControls;
 using Logic;
 
@@ -7,118 +9,110 @@ namespace Presentation
 {
     public partial class WFCategorias : System.Web.UI.Page
     {
-        CategoryLog categoryLogic = new CategoryLog();
+        CategoryLog objCat = new CategoryLog();
+
+        private int _idCategory;
+        private string _nombre;
+        private string _descripcion;
+        // Bandera para saber si la operación fue exitosa
+        private bool executed = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                CargarCategorias(); // Llamada para cargar las categorías al inicio
+                showCategories();      // Llamada para cargar las categorías al inicio 
             }
         }
 
-        // Dentro de la clase 'WFCategorias'
-        private void CargarCategorias()
+        // Mostrar todas las categorías en el GridView
+        private void showCategories()
         {
-            // Instancia de la capa lógica de categorías
-            CategoryLog categoriaLogica = new CategoryLog();
-
-            // Configura el origen de datos del GridView con el resultado del método showCategories de la capa lógica
-            gvCategorias.DataSource = categoriaLogica.showCategories();
-
-            // Vuelve a enlazar el GridView con los datos
-            gvCategorias.DataBind();
+            DataSet objData = new DataSet();
+            objData = objCat.showCategories();  // Obtiene todas las categorías
+            GVCategorias.DataSource = objData;   // Asigna el DataSet al GridView
+            GVCategorias.DataBind();   // Enlaza los datos con el GridView 
         }
 
-
-        private void LoadCategories()
+        private void Clear()
         {
-            DataSet ds = categoryLogic.showCategories();
-            gvCategorias.DataSource = ds;
-            gvCategorias.DataBind();
+            HFCatId.Value = "";
+            TBNombre.Text = "";
+            TBDescripcion.Text = "";
         }
-        protected void btnGuardar_Click(object sender, EventArgs e)
-        {
-            string nombre = txtNombre.Text;
-            string descripcion = txtDescripcion.Text;
 
-            if (string.IsNullOrEmpty(txtID.Text)) // Nueva Categoría
+        // Guardar una nueva categoría
+        protected void BtnSave_Click(object sender, EventArgs e)
+        {
+            // Capturar los datos de la categoría
+            _nombre = TBNombre.Text;
+            _descripcion = TBDescripcion.Text;
+            // Llamada a la lógica para guardar la categoría
+            executed = objCat.saveCategory(_nombre, _descripcion);
+
+            if (executed)
             {
-                if (categoryLogic.saveCategory(nombre, descripcion))
-                {
-                    lblMensaje.Text = "Categoría guardada correctamente.";
-                }
-                else
-                {
-                    lblMensaje.Text = "Error al guardar la categoría.";
-                }
-            }
-            else // Actualizar Categoría
-            {
-                int id = int.Parse(txtID.Text);
-                if (categoryLogic.updateCategory(id, nombre, descripcion))
-                {
-                    lblMensaje.Text = "Categoría actualizada correctamente.";
-                }
-                else
-                {
-                    lblMensaje.Text = "Error al actualizar la categoría.";
-                }
-            }
-
-            ClearForm();
-            LoadCategories();
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            ClearForm();
-        }
-
-        private void ClearForm()
-        {
-            txtID.Text = string.Empty;
-            txtNombre.Text = string.Empty;
-            txtDescripcion.Text = string.Empty;
-        }
-        protected void btnNuevo_Click(object sender, EventArgs e)
-        {
-            ClearForm();
-            pnlFormulario.Visible = true;
-        }
-        protected void gvCategorias_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            GridViewRow row = gvCategorias.Rows[e.NewEditIndex];
-            txtID.Text = row.Cells[0].Text; // Asigna el ID al campo oculto
-            txtNombre.Text = row.Cells[1].Text;
-            txtDescripcion.Text = row.Cells[2].Text;
-
-            pnlFormulario.Visible = true;
-            gvCategorias.EditIndex = -1;
-        }
-        protected void gvCategorias_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            int id = Convert.ToInt32(gvCategorias.DataKeys[e.RowIndex].Value);
-
-            if (categoryLogic.deleteCategory(id))
-            {
-                lblMensaje.Text = "Categoría eliminada correctamente.";
+                LblMsj.Text = "¡Categoría guardada exitosamente!";
+                LblMsj.ForeColor = System.Drawing.Color.Green;
+                Clear(); // Limpiar los TextBox después de guardar
+                showCategories(); // Mostrar las categorías actualizadas
             }
             else
             {
-                lblMensaje.Text = "Error al eliminar la categoría.";
+                LblMsj.Text = "¡Error al guardar categoría! Esta categoria no existe en el registro";
+                LblMsj.ForeColor = System.Drawing.Color.Red;
             }
-
-            LoadCategories();
         }
-        protected void gvCategorias_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+
+        // Actualizar una categoría existente
+        protected void BtnUpdate_Click(object sender, EventArgs e)
         {
-            // Cancela la edición en el GridView y regresa al modo de visualización normal
-            gvCategorias.EditIndex = -1;
+            _idCategory = Convert.ToInt32(HFCatId.Value);  // Obtener el ID de la categoría seleccionada
+            _nombre = TBNombre.Text;    // Obtener el nombre de la categoría
 
-            // Vuelve a cargar las categorías en el GridView para mostrar los datos actualizados
-            CargarCategorias();
+            // Llamada a la lógica de negocio para actualizar la categoría
+            executed = objCat.updateCategory(_idCategory, _nombre, _descripcion);
+
+            if (executed)
+            {
+                LblMsj.Text = "¡Categoría actualizada exitosamente!";
+                LblMsj.ForeColor = System.Drawing.Color.Green;
+                Clear();
+                showCategories();        // Mostrar las categorías actualizadas
+            }
+            else
+            {
+                LblMsj.Text = "¡Error al actualizar la categoría!";
+                LblMsj.ForeColor = System.Drawing.Color.Red;
+            }
         }
 
+        // Evento para seleccionar una fila en el GridView y cargar los datos en los controles
+        protected void GVCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Obtener el ID de la categoría seleccionada
+
+            HFCatId.Value = GVCategorias.SelectedRow.Cells[0].Text;
+            TBNombre.Text = GVCategorias.SelectedRow.Cells[1].Text;
+            TBDescripcion.Text = GVCategorias.SelectedRow.Cells[2].Text;
+        }
+
+        // Evento para eliminar una categoría
+        protected void GVCategorias_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int _idCategoria = Convert.ToInt32(GVCategorias.DataKeys[e.RowIndex].Values[0]);
+            executed = objCat.deleteCategory(_idCategoria);
+
+            if (executed)
+            {
+                LblMsj.Text = "Categoría se eliminó exitosamente";
+                GVCategorias.EditIndex = -1;
+                showCategories();
+            }
+            else
+            {
+                LblMsj.Text = "Error al eliminar categoría";
+            }
+        }
     }
 }

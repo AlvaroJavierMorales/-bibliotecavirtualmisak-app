@@ -11,7 +11,7 @@ namespace Presentation
 {
 
 
-    public partial class Index
+    public partial class index
     {
     }
 }

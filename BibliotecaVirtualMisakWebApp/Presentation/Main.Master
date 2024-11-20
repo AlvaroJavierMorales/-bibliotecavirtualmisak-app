@@ -1,37 +1,116 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="Presentation.Main" %>
-
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="es">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Maestra</title>
+    <link href="bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
+    <style>
+      /* Establecer el fondo de la página */
+body {
+    background-color: #F5F5DC; /* Color de fondo beige */
+    color: black; /* Establece el color del texto como negro */
+    font-family: Arial, sans-serif;
+}
+
+/* Fondo y degradado para header y footer */
+header, footer {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)) !important; /* Degradado oscuro */
+    color: white; /* Texto blanco en header y footer */
+}
+
+/* Asegura que el footer quede al fondo de la página */
+body, html {
+    height: 100%; /* Asegura que el body y html ocupen toda la altura de la pantalla */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    flex: 1; /* Esto permite que el contenido ocupe el espacio restante */
+    padding-bottom: 20px; /* Añadimos un poco de espacio debajo del contenido */
+}
+
+/* Estilo específico para el footer */
+footer {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+    color: white;
+    padding: 30px 0;
+    margin-top: auto; /* Esto asegura que el footer se pegue abajo */
+}
+
+footer .social-media a {
+    margin: 0 5px;
+    color: white;
+    text-decoration: none;
+}
+
+footer .social-media a:hover {
+    text-decoration: underline;
+}
+
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <%-- Menú de navegación con enlaces a cada tabla --%>
-        <nav>
-            <a href="Index.aspx">Inicio</a>
-            <a href="WFCategorias.aspx">Categorías</a>
-            <a href="WFAutores.aspx">Autores</a>
-            <a href="WFEditorial.aspx">Editoriales</a>
-            <a href="WFMaterialEducativo.aspx">Material Educativo</a>
-            <a href="WFVisitas.aspx">Visitas</a>
-            <a href="WFRegistroUsuarios.aspx">Registro Usuarios</a>
-            <a href="WFGestionUsuarios.aspx">Gestion Usuarios</a>
-            <a href="WFSolicitudCompra.aspx">Solicitudes de Compra</a>
-            <a href="WFEncuesta.aspx">Encuestas</a>
-            <a href="WFRespuestas.aspx">Respuestas</a>
-            <a href="#">Cerrar Sesión</a>
-        </nav>
-        
-        <%-- Contenido dinámico específico para cada página secundaria --%>
-        <div>
+        <!-- Menú de navegación con enlaces a cada tabla -->
+        <header>
+            <div class="container text-center text-white py-4">
+                <h1 class="display-4">Biblioteca Virtual Misak</h1>
+                <p class="lead">Explora, aprende y conecta con nuestro contenido educativo.</p>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+                <div class="container">
+                    <a class="navbar-brand" href="index.aspx">Biblioteca Virtual Misak</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <nav class="navbar-nav">
+                            <a class="nav-link" href="index.aspx">Inicio</a>
+                            <a class="nav-link" href="WFCategorias.aspx">Categorías</a>
+                            <a class="nav-link" href="WFAuthors.aspx">Autores</a>
+                            <a class="nav-link" href="WFEditorial.aspx">Editoriales</a>
+                            <a class="nav-link" href="WFMaterialEducativo.aspx">Material Educativo</a>
+                            <a class="nav-link" href="WFVisits.aspx">Visitas</a>
+                            <a class="nav-link" href="WFRegistroUsuarios.aspx">Registro Usuarios</a>
+                            <a class="nav-link" href="WFGestionUsuarios.aspx">Gestión Usuarios</a>
+                            <a class="nav-link" href="WFPurchaseRequest.aspx">Solicitudes de Compra</a>
+                            <a class="nav-link" href="WFEncuesta.aspx">Encuestas</a>
+                            <a class="nav-link" href="WFRespuestas.aspx">Respuestas</a>
+                        </nav>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Contenedor principal con contenido específico -->
+        <div class="content-wrapper">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
+
+        <!-- Pie de página -->
+        <footer>
+            <div class="container text-center text-white py-4">
+                <div class="social-media mb-3">
+                    <a href="#" class="text-white" target="_blank">Facebook</a> |
+                    <a href="#" class="text-white" target="_blank">Twitter</a> |
+                    <a href="#" class="text-white" target="_blank">Instagram</a> |
+                    <a href="#" class="text-white" target="_blank">LinkedIn</a>
+                </div>
+                <p>&copy; 2024 Biblioteca Virtual Misak. Todos los derechos reservados.</p>
+                <p>Este sitio web y su contenido están protegidos por leyes de derechos de autor. Para consultas o permisos, por favor contáctenos en: 
+                   <a href="mailto:derechos@bibliotecamisak.org" class="text-success">derechos@bibliotecamisak.org</a>.
+                </p>
+            </div>
+        </footer>
     </form>
-    <%-- Pie de página --%>
 </body>
 </html>

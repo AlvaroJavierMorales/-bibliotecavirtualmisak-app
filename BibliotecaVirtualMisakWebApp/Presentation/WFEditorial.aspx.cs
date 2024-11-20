@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Data;
 using System.Web.UI.WebControls;
 using Logic;
@@ -7,128 +8,121 @@ namespace Presentation
 {
     public partial class WFEditorial : System.Web.UI.Page
     {
-        EditorialLog editorialLogic = new EditorialLog();
+        EditorialLog objEdit = new EditorialLog();
+
+        private int _idEditorial;
+        private string _nombre;
+        private string _ciudad;
+        private int _telefono;
+        private string _correo;
+        // Bandera para saber si la operación fue exitosa
+        private bool executed = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                CargarEditoriales(); // Llamada para cargar las editoriales al inicio
+                showEditorials();      // Llamada para cargar las editoriales al inicio 
             }
         }
-
-        // Dentro de la clase 'WFEditorial'
-        private void CargarEditoriales()
+        // Mostrar todos los clientes en el GridView
+        private void showEditorials()
         {
-            // Instancia de la capa lógica de editoriales
-            EditorialLog editorialLogica = new EditorialLog();
-
-            // Configura el origen de datos del GridView con el resultado del método showEditorials de la capa lógica
-            gvEditoriales.DataSource = editorialLogica.showEditorials();
-
-            // Vuelve a enlazar el GridView con los datos
-            gvEditoriales.DataBind();
+            DataSet objData = new DataSet();
+            objData = objEdit.showEditorials();  // Obtiene todos los clientes
+            GVEditorial.DataSource = objData;   // Asigna el DataSet al GridView
+            GVEditorial.DataBind();   // Enlaza los datos con el GridView 
         }
-
-        private void LoadEditoriales()
+        private void Clear()
         {
-            DataSet ds = editorialLogic.showEditorials();
-            gvEditoriales.DataSource = ds;
-            gvEditoriales.DataBind();
+            HFEditId.Value = "";
+            TBNombre.Text = "";
+            TBCiudad.Text = "";
+            TBTelefono.Text = "";
+            TBCorreo.Text = "";
         }
-
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        // Guardar un nuevo editoirial
+        protected void BtnSave_Click(object sender, EventArgs e)
         {
-            string id = txtNombre.Text;
-            string nombre = txtNombre.Text;
-            string ciudad = txtCiudad.Text;
-            string telefono = txtTelefono.Text;
-            string correo = txtCorreo.Text;
+            // Capturar los datos de la ediotorial
 
-            if (string.IsNullOrEmpty(txtID.Text)) // Nueva Editorial
+            _nombre = TBNombre.Text;
+            _ciudad = TBCiudad.Text;
+            _telefono = (int)Convert.ToUInt64(TBTelefono.Text);
+            _correo = TBCorreo.Text;
+            // Llamada a la lógica para guardar la editorial
+            executed = objEdit.saveEditorial(_nombre, _ciudad, _telefono, _correo);
+
+            if (executed)
             {
-                if (editorialLogic.SaveEditorial(nombre, ciudad, telefono, correo))
-                {
-                    lblMensaje.Text = "Editorial guardada correctamente.";
-                }
-                else
-                {
-                    lblMensaje.Text = "Error al guardar la editorial.";
-                }
-            }
-            else // Actualizar Editorial
-            {
-                int id = int.Parse(txtID.Text);
-                if (editorialLogic.updateEditorial(id, nombre, ciudad, telefono, correo))
-                {
-                    lblMensaje.Text = "Editorial actualizada correctamente.";
-                }
-                else
-                {
-                    lblMensaje.Text = "Error al actualizar la editorial.";
-                }
-            }
-
-            ClearForm();
-            LoadEditoriales();
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            ClearForm();
-        }
-
-        private void ClearForm()
-        {
-            txtID.Text = string.Empty;
-            txtNombre.Text = string.Empty;
-            txtCiudad.Text = string.Empty;
-            txtTelefono.Text = string.Empty;
-            txtCorreo.Text = string.Empty;
-        }
-
-        protected void btnNuevo_Click(object sender, EventArgs e)
-        {
-            ClearForm();
-            pnlFormulario.Visible = true;
-        }
-
-        protected void gvEditoriales_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            GridViewRow row = gvEditoriales.Rows[e.NewEditIndex];
-            txtID.Text = row.Cells[0].Text; // Asigna el ID al campo oculto
-            txtNombre.Text = row.Cells[2].Text;
-            txtCiudad.Text = row.Cells[3].Text;
-            txtTelefono.Text = row.Cells[4].Text;
-            txtCorreo.Text = row.Cells[5].Text;
-
-            pnlFormulario.Visible = true;
-            gvEditoriales.EditIndex = -1;
-        }
-
-        protected void gvEditoriales_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            int id = Convert.ToInt32(gvEditoriales.DataKeys[e.RowIndex].Value);
-
-            if (editorialLogic.deleteEditorial(id))
-            {
-                lblMensaje.Text = "Editorial eliminada correctamente.";
+                LblMsj.Text = "¡Editorial guardado exitosamente!";
+                LblMsj.ForeColor = System.Drawing.Color.Green;
+                Clear(); // Limpiar los TextBox después de guardar
+                showEditorials(); // Mostrar los clientes actualizados
             }
             else
             {
-                lblMensaje.Text = "Error al eliminar la editorial.";
+                LblMsj.Text = "¡Error al guardar editorial!";
+                LblMsj.ForeColor = System.Drawing.Color.Red;
             }
-
-            LoadEditoriales();
         }
 
-        protected void gvEditoriales_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        // Actualizar un cliente existente
+        protected void BtnUpdate_Click(object sender, EventArgs e)
         {
-            // Cancela la edición en el GridView y regresa al modo de visualización normal
-            gvEditoriales.EditIndex = -1;
+            // Obtener los datos del cliente
+            _idEditorial = (int)Convert.ToInt32(HFEditId.Value);
+            _nombre = TBNombre.Text;
+            _ciudad = TBCiudad.Text;
+            _telefono = (int)Convert.ToInt64(TBTelefono.Text);
+            _correo = TBCorreo.Text;
 
-            // Vuelve a cargar las editoriales en el GridView para mostrar los datos actualizados
-            CargarEditoriales();
+
+            // Llamada a la lógica de negocio para actualizar el cliente
+            executed = objEdit.updateEditorial(_idEditorial, _nombre, _ciudad, _telefono, _correo);
+
+            if (executed)
+            {
+                LblMsj.Text = "¡Editorial actualizado exitosamente!";
+                LblMsj.ForeColor = System.Drawing.Color.Green;
+                Clear();
+                showEditorials(); // Mostrar los clientes actualizados
+            }
+            else
+            {
+                LblMsj.Text = "¡Error al actualizar Editorial!";
+                LblMsj.ForeColor = System.Drawing.Color.Red;
+            }
+        }
+
+        // Evento para seleccionar una fila en el GridView y cargar los datos en los controles
+        protected void GVEditorial_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Obtener el ID del cliente seleccionado
+            GridViewRow row = GVEditorial.SelectedRow;
+            HFEditId.Value = GVEditorial.SelectedRow.Cells[0].Text;
+            TBNombre.Text = GVEditorial.SelectedRow.Cells[1].Text;
+            TBCiudad.Text = GVEditorial.SelectedRow.Cells[2].Text;
+            TBTelefono.Text = GVEditorial.SelectedRow.Cells[3].Text;
+            TBCorreo.Text = GVEditorial.SelectedRow.Cells[4].Text;
+        }
+
+        // Evento para eliminar un cliente
+        protected void GVEditorial_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int _idEditorial = Convert.ToInt32(GVEditorial.DataKeys[e.RowIndex].Values[0]);
+            executed = objEdit.deleteEditorial(_idEditorial);
+
+            if (executed)
+            {
+                LblMsj.Text = "Editorial se eliminó exitosamente";
+                GVEditorial.EditIndex = -1;
+                showEditorials();
+            }
+            else
+            {
+                LblMsj.Text = "Error al eliminar Editorial";
+            }
         }
     }
 }
