@@ -1,6 +1,10 @@
-﻿using System;
+﻿
+using Logic;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,12 +14,13 @@ namespace Presentation
     public partial class WFVisits : System.Web.UI.Page
     {
         VisitsLog objVis = new VisitsLog();
-        UsersLog objVis = new UsersLog();
+        UserLogic objuser = new UserLogic();
 
 
+        private int _usu_id, _idVisits;
+        private DateTime _fecha_ingreso;
+        private TimeSpan _duracion;
 
-        private string _fecha_ingreso, _duracion;
-        private int _usu_id;
         private bool executed = false;
 
 
@@ -29,7 +34,14 @@ namespace Presentation
 
             }
         }
-
+        //Metodo para mostrar los usuarios en el DDL
+        private void showUserDDL()
+        {
+            DDLUsers.DataSource = objuser.showUserDDL();
+            DDLUsers.DataValueField = "usu_id";//Nombre de la llave primaria
+            DDLUsers.DataBind();
+            DDLUsers.Items.Insert(0, new ListItem("Seleccione", "0"));
+        }
         //Metodo para mostrar todos las visitas
         private void showVisits()
         {
@@ -39,64 +51,23 @@ namespace Presentation
             GVVisits.DataBind();
         }
 
-        //Metodo para mostrar los usuarios en el DDL
-        private void showUserDDL()
-        {
-            DDLUsers.DataSource = objVis.showUserDDL();
-            DDLUsers.DataValueField = "usu_id";//Nombre de la llave primaria
-            DDLUsers.DataBind();
-            DDLUsers.Items.Insert(0, "Seleccione");
-        }
+
         //Metodo para limpiar las cajas de texto y los selectores
         private void clear()
         {
-            TBId.Text = "";
+            HFVisitId.Value = "";
             TBFechaIngreso.Text = "";
             TBDuracion.Text = "";
             DDLUsers.SelectedIndex = 0;
 
         }
-        //Evento que permite ocultar columnas en la GridView
-        protected void GVVisits_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.Header)
-            {
-                e.Row.Cells[1].Visible = false;
-                e.Row.Cells[6].Visible = false;
-                e.Row.Cells[8].Visible = false;
-            }
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                e.Row.Cells[1].Visible = false;
-                e.Row.Cells[6].Visible = false;
-                e.Row.Cells[8].Visible = false;
-            }
-        }
 
-        //Metodo para mostrar las usuarios en el DDL
-        private void showUserDDL()
-        {
-            // Se asigna el origen de datos al DropDownList,
-            // utilizando el método showVisitsDDL de la instancia objCat de la clase VisitsLog.
-            DDLUsers.DataSource = objVis.showUserDDL();
-
-            // Se especifica el campo que se utilizará como valor de cada elemento del DropDownList.
-            DDLUsers.DataValueField = "usu_id";
-
-            // Se especifica el campo que se mostrará como texto para cada elemento del DropDownList.
-            DDLUsers.DataTextField = "usu_correo";
-
-            // Se enlaza el origen de datos con el DropDownList.
-            DDLUsers.DataBind();
-
-            // Se agrega un elemento "Seleccione" al principio del DropDownList para indicar al usuario que elija una visita.
-            DDLUsers.Items.Insert(0, "Seleccione");
-        }
         //Evento que se ejecuta al dar clic en el boton Guardar
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            _fecha_ingreso = TBFechaIngreso.Text;
-            _duracion = TBDuracion.Text;
+
+            DateTime.TryParse(TBFechaIngreso.Text, out _fecha_ingreso);
+            _duracion = TimeSpan.Parse(TBDuracion.Text);
             _usu_id = Convert.ToInt32(DDLUsers.SelectedValue);
 
 
@@ -105,8 +76,9 @@ namespace Presentation
             if (executed)
             {
                 LblMsj.Text = "La visita se guardo exitosamente!";
-                showVisits();
                 clear();
+                showVisits();
+
             }
             else
             {
@@ -116,36 +88,79 @@ namespace Presentation
         //Evento que se ejecuta al dar clic en el boton Actualizar
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {
-            _fecha_ingreso = TBFechaIngreso.Text;
-            _duracion = TBDuracion.Text;
-            _usu_id = Convert.ToInt32(DDLUsers.SelectedValue);
-
-
-            executed = objVis.updateVisits(_fecha_ingreso, _duracion, _usu_id);
-
-            if (executed)
+            if (DateTime.TryParse(TBFechaIngreso.Text, out _fecha_ingreso))
             {
-                LblMsj.Text = "La visita se actualizo exitosamente!";
-                showVisits();
-            }
-            else
-            {
-                LblMsj.Text = "Error al guardar";
+                if (!string.IsNullOrEmpty(HFVisitId.Value) && int.TryParse(HFVisitId.Value, out _idVisits))
+                {
+                    _duracion = TimeSpan.Parse(TBDuracion.Text);
+                    _usu_id = Convert.ToInt32(DDLUsers.SelectedValue);
+
+                    executed = objVis.updateVisits(_idVisits, _usu_id, _fecha_ingreso, _duracion);
+
+
+                    if (executed)
+                    {
+                        LblMsj.Text = "La visita se actualizo exitosamente!";
+                        showVisits();
+                    }
+                    else
+                    {
+                        LblMsj.Text = "Error al actualizar";
+                    }
+                }
+
+                else
+                {
+                    LblMsj.Text = "El ID de la visita es inválido. Por favor, verifica los datos";
+
+                }
+
             }
         }
-        //Evento que permite pasar los datos de la GridView a los TextBox y DropDowList
         protected void GVVisits_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Se asigna el ID de la visita al campo de texto TBId.
-            TBId.Text = GVVisits.SelectedRow.Cells[1].Text;
+            HFVisitId.Value = GVVisits.SelectedRow.Cells[0].Text;
+            // Se asigna el usuario en el DropDownList DDLUser.
+            DDLUsers.SelectedValue = GVVisits.SelectedRow.Cells[1].Text;
             // Se asigna la fecha de ingreso de la visita al campo de texto TBfechaingreso.
             TBFechaIngreso.Text = GVVisits.SelectedRow.Cells[2].Text;
             // Se asigna la duracion de la visita al campo de texto TBDuracion.
             TBDuracion.Text = GVVisits.SelectedRow.Cells[3].Text;
-            // Se asigna el usuario en el DropDownList DDLUser.
-            DDLUser.SelectedValue = GVVisits.SelectedRow.Cells[4].Text;
 
 
+
+        }
+
+
+
+        protected void GVVisits_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            try
+            {
+                // Obtener los parámetros desde los DataKeys del GridView
+                int idVisits = Convert.ToInt32(GVVisits.DataKeys[e.RowIndex].Values["vis_id"]);
+                int userId = Convert.ToInt32(GVVisits.DataKeys[e.RowIndex].Values["tbl_usuarios_usu_id"]);
+
+                // Llamar al método de eliminación pasando los dos parámetros
+                bool executed = objVis.deleteVisits(idVisits, userId);
+
+                if (executed)
+                {
+                    LblMsj.Text = "¡Visita eliminada exitosamente!";
+                    showVisits(); // Actualizar la vista de visitas
+                }
+                else
+                {
+                    LblMsj.Text = "Error al eliminar la visita. Inténtalo nuevamente.";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores inesperados
+                LblMsj.Text = "Ocurrió un error al intentar eliminar la visita. Por favor, contacta al soporte.";
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
     }
 }

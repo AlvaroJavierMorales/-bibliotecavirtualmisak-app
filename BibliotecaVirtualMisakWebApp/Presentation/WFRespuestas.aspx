@@ -1,42 +1,66 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFRespuestas.aspx.cs" Inherits="Presentation.WFRespuestas" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div>
-        <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlEncuesta_SelectedIndexChanged"></asp:DropDownList>
+  <h1>Por favor registre si respuesta</h1>
+    <br />
+    <br />
+    <h2>La respuesta debe ser "Si" o "No"</h2>
+    <div class="container-fluid">
+        <%--Mensaje de alerta o éxito--%>
+        <div class="row">
+            <div class="col">
+                <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Green"></asp:Label>
+            </div>
+        </div>
+        <br />
 
-         <%--Selección de la encuesta--%> 
-        <asp:Label ID="LabelSurvey" runat="server" Text="Seleccione la encuesta"></asp:Label><br />
-        <asp:DropDownList ID="ddlEncuesta" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlEncuesta_SelectedIndexChanged"></asp:DropDownList><br />
+        <%--Formulario para agregar o editar respuestas--%>
+        <div class="row">
+            <div class="col">
+                <%--Id--%>
+                <asp:HiddenField ID="hdfAnswerId" runat="server"/>
 
-         <%--Muestra la pregunta--%> 
-        <asp:Label ID="LabelQuestion" runat="server" Text="Pregunta: "></asp:Label>
-        <asp:Literal ID="LitQuestion" runat="server"></asp:Literal><br />
+                <%--Respuesta--%>
+                <asp:Label ID="lblRespuesta" runat="server" Text="Respuesta:"></asp:Label>
+                <asp:TextBox ID="txtRespuesta" CssClass="form-control" runat="server" Width="300px" />
+            </div>
+            <div class="col">
+                <%--Encuesta--%>
+                <asp:Label ID="lblEncuesta" runat="server" Text="Seleccionar Encuesta:"></asp:Label>
+                <asp:DropDownList ID="ddlEncuesta" CssClass="form-select" runat="server" Width="200px">
+                    <%--Las encuestas serán cargadas en el código-behind--%>
+                </asp:DropDownList>
+            </div>
+        </div>
+      <br />
 
-         <%--Respuesta del usuario--%> 
-        <asp:Label ID="LabelResponse" runat="server" Text="Ingrese su respuesta (Sí o No)"></asp:Label>
-        <asp:TextBox ID="txtRespuesta" runat="server" MaxLength="2"></asp:TextBox><br />
+        <%--Botones para guardar, actualizar y eliminar respuesta--%>
+        <div class="row">
+            <div class="col">
+                <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" Text="Guardar" OnClick="btnGuardar_Click" />
+                <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-primary" Text="Actualizar" OnClick="btnActualizar_Click" Visible="false" />
+                <asp:Button ID="btnEliminar" runat="server" CssClass="btn btn-danger" Text="Eliminar" OnClick="btnEliminar_Click" />
+            </div>
+        </div>
+        <br />
 
-         <%--Mensaje de estado--%> 
-        <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label><br />
-
-         <%--Botones--%> 
-        <asp:Button ID="btnGuardar" Text="Guardar Respuesta" OnClick="btnGuardar_Click" runat="server" />
-        <asp:Button ID="btnActualizar" Text="Actualizar Respuesta" OnClick="btnActualizar_Click" runat="server" Visible="false" />
-        <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
-
-         <%--Grid para mostrar las respuestas--%> 
-        <asp:GridView ID="gvAnswers" runat="server" AutoGenerateColumns="False" OnRowEditing="gvAnswers_RowEditing" OnRowDeleting="gvAnswers_RowDeleting">
-            <Columns>
-                <asp:BoundField DataField="res_id" HeaderText="ID" SortExpression="res_id" />
-                <asp:BoundField DataField="res_respuesta" HeaderText="Respuesta" SortExpression="res_respuesta" />
-                <asp:BoundField DataField="tbl_encuesta_en_id" HeaderText="ID Encuesta" SortExpression="tbl_encuesta_en_id" />
-                <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
-            </Columns>
-        </asp:GridView>
-
-        <%-- HiddenField para almacenar el ID de la respuesta--%>
-        <asp:HiddenField ID="hdfAnswerId" runat="server" />
+        <%--Listado de respuestas--%>
+        <div class="row">
+            <div class="col">
+                <h3>Listado de Respuestas</h3>
+                       <asp:GridView ID="gvAnswers" CssClass="table table-hover" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="gvAnswers_SelectedIndexChanged" OnRowCommand="gvAnswers_RowCommand">        
+                           <Columns>
+                        <asp:BoundField DataField="res_id" HeaderText="ID" />
+                        <asp:BoundField DataField="tbl_encuesta_en_id" HeaderText="Encuesta" />
+                        <asp:BoundField DataField="en_descripcion_pregunta" HeaderText="Descripcion" />
+                        <asp:BoundField DataField="res_respuesta" HeaderText="Respuesta" />
+                        <asp:CommandField HeaderText="Opción" ShowSelectButton="True" />
+                    </Columns>
+                </asp:GridView>
+            </div>
+        </div>
     </div>
 </asp:Content>

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 
 namespace Presentation
 {
-
     public partial class WFRegistroUsuarios : System.Web.UI.Page
     {
         UserLogic objUserLogic = new UserLogic();
@@ -51,6 +50,7 @@ namespace Presentation
             if (resultado)
             {
                 LblMessage.Text = "Usuario guardado exitosamente.";
+                clearFields(); // Limpiar las casillas después de guardar
             }
             else
             {
@@ -58,5 +58,16 @@ namespace Presentation
             }
         }
 
+        // Método para limpiar las casillas
+        private void clearFields()
+        {
+            TBFirstName.Text = "";
+            TBLastName.Text = "";
+            TBEmail.Text = "";
+            TBPassword.Text = "";
+            TBSalt.Text = "";
+            DDLRole.SelectedIndex = 0;
+            DDLEducationLevel.SelectedIndex = 0;
+        }
     }
 }
