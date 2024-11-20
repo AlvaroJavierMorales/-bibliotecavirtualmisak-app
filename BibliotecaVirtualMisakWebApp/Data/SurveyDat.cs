@@ -44,7 +44,7 @@ namespace Data
         public bool saveSurvey(string _descripcionPregunta, int _usu_id)
         {
             bool executed = false;
-            int row;
+            int row; // Variable para almacenar el número de filas afectadas por la operación.
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
             objSelectCmd.CommandText = "procInsertSurvey"; // nombre del procedimiento almacenado

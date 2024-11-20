@@ -1,6 +1,6 @@
-﻿using System.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using Data;
@@ -20,7 +20,7 @@ namespace Logic
         // Método para mostrar únicamente el ID y la descripción
         public DataSet showCategoriesDDL()
         {
-            return objCat.showCategoriesDDL(); 
+            return objCat.showCategoriesDDL();
         }
 
         // Método para guardar una nueva Categoría

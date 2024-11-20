@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿
+using System.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,24 +28,22 @@ namespace Logic
 
         }
 
-        public bool saveAuthor(DateTime _fecha_ingreso, TimeSpan _duracion, int _usu_id)
+        public bool saveVisits(DateTime _fecha_ingreso, TimeSpan _duracion, int _usu_id)
         {
-            return objVis.saveAuthor(_fecha_ingreso, _duracion, _usu_id);
+            return objVis.saveVisits(_fecha_ingreso, _duracion, _usu_id);
 
         }
-        public bool updateAuthor(int _idVisits, DateTime _fecha_ingreso, TimeSpan _duracion, int _usu_id)
+        public bool updateVisits(int _idVisits, int _usu_id, DateTime _fecha_ingreso, TimeSpan _duracion)
         {
-            return objVis.updateAuthor(_idVisits, _fecha_ingreso, _duracion, _usu_id);
+            return objVis.updateVisits(_idVisits, _usu_id, _fecha_ingreso, _duracion);
 
 
         }
 
-        public bool deleteAuthor(int _idVisits)
+        public bool deleteVisits(int _idVisits, int _userId)
         {
-            return objVis.deleteAuthor(_idVisits);
+            return objVis.deleteVisits(_idVisits, _userId);
         }
-
-
 
     }
 

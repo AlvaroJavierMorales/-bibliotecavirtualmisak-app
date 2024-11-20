@@ -1,14 +1,13 @@
-﻿using System.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 using Data;
 
 namespace Logic
 {
-    public class SurveyLog
-
+    public class SurveyLogic
     {
         SurveyDat objSurveyDat = new SurveyDat();
 
@@ -39,5 +38,6 @@ namespace Logic
         {
             return objSurveyDat.deleteSurvey(_en_id, _usu_id);
         }
+
     }
 }

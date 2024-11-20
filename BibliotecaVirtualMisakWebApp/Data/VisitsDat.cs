@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,7 @@ namespace Data
     public class VisitsDat
     {
         Persistence objPer = new Persistence();
-        DateTime fechaingreso = DateTime.Now;   
+
 
         // Método para mostrar todos las visitas
         public DataSet showVisits()
@@ -43,7 +44,7 @@ namespace Data
         }
 
         // Método para guardar una nueva visita
-        public bool saveAuthor(DateTime _fecha_ingreso,  TimeSpan _duracion, int _usu_id)
+        public bool saveVisits(DateTime _fecha_ingreso, TimeSpan _duracion, int _usu_id)
         {
             bool executed = false;
             int row;
@@ -51,7 +52,7 @@ namespace Data
             objSelectCmd.Connection = objPer.openConnection();
             objSelectCmd.CommandText = "proInsertVisits"; // nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objSelectCmd.Parameters.Add("vis_fecha_ingreso", MySqlDbType.DateTime).Value = _fecha_ingreso; // Tipo DateTime fecha de ingreso
+            objSelectCmd.Parameters.Add("v_fecha_ingreso", MySqlDbType.DateTime).Value = _fecha_ingreso; // Tipo DateTime fecha de ingreso
             objSelectCmd.Parameters.Add("vis_duracion", MySqlDbType.Time).Value = _duracion; // Tipo TimeSpan para la duracion
             objSelectCmd.Parameters.Add("tbl_usuarios_usu_id", MySqlDbType.Int32).Value = _usu_id; // Tipo int para el usu_id
             try
@@ -71,7 +72,7 @@ namespace Data
         }
 
         // Método para actualizar una visita
-        public bool updateAuthor(int _idVisits, DateTime _fecha_ingreso, TimeSpan _duracion, int _usu_id)
+        public bool updateVisits(int _idVisits, int _usu_id, DateTime _fecha_ingreso, TimeSpan _duracion)
         {
             bool executed = false;
             int row;
@@ -81,10 +82,12 @@ namespace Data
             objSelectCmd.CommandType = CommandType.StoredProcedure;
 
             // Parametros de fecha y duracion
+
             objSelectCmd.Parameters.Add("v_vis_id", MySqlDbType.Int32).Value = _idVisits; // Tipo int para el id de visitas
-            objSelectCmd.Parameters.Add("v_vis_fecha_ingreso", MySqlDbType.DateTime).Value = _fecha_ingreso; // Tipo DateTime para la fecha de ingreso
-            objSelectCmd.Parameters.Add("v_vis_duracion", MySqlDbType.Time).Value = _duracion; // Tipo Time para la duracion (en lugar de TimeSpan)
             objSelectCmd.Parameters.Add("v_usu_id", MySqlDbType.Int32).Value = _usu_id; // Tipo int para el usuario id
+            objSelectCmd.Parameters.Add("vis_fecha_ingreso", MySqlDbType.DateTime).Value = _fecha_ingreso; // Tipo DateTime para la fecha de ingreso
+            objSelectCmd.Parameters.Add("vis_duracion", MySqlDbType.Time).Value = _duracion; // Tipo Time para la duracion (en lugar de TimeSpan)
+
 
             try
             {
@@ -103,7 +106,7 @@ namespace Data
         }
 
         // Método para borrar una Visita
-        public bool deleteAuthor(int _idVisits)
+        public bool deleteVisits(int _idVisits, int _userId) // Agregar parámetro de usuario
         {
             bool executed = false;
             int row;
@@ -111,7 +114,13 @@ namespace Data
             objSelectCmd.Connection = objPer.openConnection();
             objSelectCmd.CommandText = "procDeleteVisits"; // nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
+
+            // Agregar parámetro de ID de visita
             objSelectCmd.Parameters.Add("v_vis_id", MySqlDbType.Int32).Value = _idVisits;
+
+            // Si el procedimiento también necesita un ID de usuario, agrega este parámetro
+            objSelectCmd.Parameters.Add("v_us_id", MySqlDbType.Int32).Value = _userId;
+
             try
             {
                 row = objSelectCmd.ExecuteNonQuery();
@@ -122,11 +131,12 @@ namespace Data
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error " + e.ToString());
+                Console.WriteLine("Error: " + e.ToString());
             }
             objPer.closeConnection();
             return executed;
         }
+
 
     }
 }
