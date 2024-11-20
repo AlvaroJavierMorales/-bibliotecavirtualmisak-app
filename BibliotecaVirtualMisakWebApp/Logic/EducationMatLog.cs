@@ -1,9 +1,9 @@
-﻿using System.Data;
+﻿using Data;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
-using Data;
 
 namespace Logic
 {
@@ -15,18 +15,19 @@ namespace Logic
         public DataSet showMaterials()
         {
             return objMatEdu.showMaterials();
+
         }
 
         // Método para insertar un nuevo Material Educativo
-        public bool saveMaterial(string _titulo, DateTime _anoPublicacion, string _urlDescarga, decimal _precio, int _cantidad, int _editorialId, int _categoriaId, int _solicitudCompraId, int _visitasId)
+        public bool saveMaterial(string _titulo, DateTime _anoPublicacion, string _urlDescarga, decimal _precio, int _editorialId, int _categoriaId, int _solicitudCompraId, int _visitasId)
         {
-            return objMatEdu.saveMaterial(_titulo, _anoPublicacion, _urlDescarga, _precio, _cantidad, _editorialId, _categoriaId, _solicitudCompraId, _visitasId);
+            return objMatEdu.saveMaterial(_titulo, _anoPublicacion, _urlDescarga, _precio, _editorialId, _categoriaId, _solicitudCompraId, _visitasId);
         }
 
         // Método para actualizar un Material Educativo
-        public bool updateMaterial(int _id, string _titulo, DateTime _anoPublicacion, string _urlDescarga, decimal _precio, int _cantidad, int _editorialId, int _categoriaId, int _solicitudCompraId, int _visitasId)
+        public bool updateMaterial(int _idMaterial, string _titulo, DateTime _anoPublicacion, string _urlDescarga, decimal _precio, int _editorialId, int _categoriaId, int _solicitudCompraId, int _visitasId)
         {
-            return objMatEdu.updateMaterial(_id, _titulo, _anoPublicacion, _urlDescarga, _precio, _cantidad, _editorialId, _categoriaId, _solicitudCompraId, _visitasId);
+            return objMatEdu.updateMaterial(_idMaterial, _titulo, _anoPublicacion, _urlDescarga, _precio, _editorialId, _categoriaId, _solicitudCompraId, _visitasId);
         }
 
         // Método para eliminar un Material Educativo

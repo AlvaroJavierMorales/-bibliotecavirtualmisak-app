@@ -62,9 +62,10 @@ namespace Data
             objSelectCmd.Connection = objPer.openConnection();
             objSelectCmd.CommandText = "procUpdateAnswer"; // nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objSelectCmd.Parameters.Add("v_id", MySqlDbType.Int32).Value = _idRespuesta; // ID de la respuesta
-            objSelectCmd.Parameters.Add("v_respuesta", MySqlDbType.VarChar).Value = _respuesta; // Tipo VarChar para la respuesta
-            objSelectCmd.Parameters.Add("v_en_id", MySqlDbType.Int32).Value = _en_id; // ID de la encuesta
+            objSelectCmd.Parameters.Add("v_res_id", MySqlDbType.Int32).Value = _idRespuesta; // Corregido
+            objSelectCmd.Parameters.Add("v_en_id", MySqlDbType.Int32).Value = _en_id;       // Corregido
+            objSelectCmd.Parameters.Add("v_res_respuesta", MySqlDbType.VarChar).Value = _respuesta; // Corregido
+
             try
             {
                 row = objSelectCmd.ExecuteNonQuery();
@@ -82,7 +83,7 @@ namespace Data
         }
 
         // Método para borrar una Respuesta
-        public bool deleteAnswer(int _idRespuesta)
+        public bool deleteAnswer(int _idRespuesta, int _en_id)
         {
             bool executed = false;
             int row;
@@ -90,7 +91,11 @@ namespace Data
             objSelectCmd.Connection = objPer.openConnection();
             objSelectCmd.CommandText = "procDeleteAnswer"; // nombre del procedimiento almacenado
             objSelectCmd.CommandType = CommandType.StoredProcedure;
-            objSelectCmd.Parameters.Add("v_id", MySqlDbType.Int32).Value = _idRespuesta; // ID de la respuesta
+
+            // Ajustar los nombres de los parámetros
+            objSelectCmd.Parameters.Add("v_res_id", MySqlDbType.Int32).Value = _idRespuesta; // ID de la respuesta
+            objSelectCmd.Parameters.Add("v_en_id", MySqlDbType.Int32).Value = _en_id; // ID de la encuesta
+
             try
             {
                 row = objSelectCmd.ExecuteNonQuery();

@@ -1,9 +1,10 @@
-﻿using System.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Data;
+using System.Data;
+
 
 namespace Logic
 {
@@ -30,9 +31,9 @@ namespace Logic
         }
 
         // Método para borrar una Respuesta
-        public bool deleteAnswer(int _idRespuesta)
+        public bool deleteAnswer(int _idRespuesta, int _en_id)
         {
-            return objAnswerDat.deleteAnswer(_idRespuesta);
+            return objAnswerDat.deleteAnswer(_idRespuesta, _en_id);
         }
     }
 }
