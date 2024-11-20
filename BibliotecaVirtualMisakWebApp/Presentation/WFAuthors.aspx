@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    
      <%--ID--%>
  <asp:TextBox ID="TBId" runat="server" Visible="False"></asp:TextBox>
  
@@ -23,25 +24,24 @@
 
     <asp:Button ID="Button1" runat="server" Text="Guardar" OnClick="BtnSave_Click" />
     <asp:Button ID="BtnUpdate" runat="server" Text="Actualizar" OnClick="BtnUpdate_Click" />
-    <asp:Button ID="BtnDelete" runat="server" Text="Eliminar" OnClick="BtnDelete_Click" />
     <asp:Label ID="LblMsj" runat="server" Text=""></asp:Label>
     <br />
     <div>
 
     <asp:GridView ID="GVAuthors" runat="server" AutoGenerateColumns="False"
-        OnSelectedIndexChanged="GVAuthors_SelectedIndexChanged" OnRowDataBound="GVAuthors_RowDataBound">
-        <Columns>
-            <asp:BoundField DataField="au_id" HeaderText="Id" />
-            <asp:BoundField DataField="au_nombre" HeaderText="Nombre" />
-            <asp:BoundField DataField="au_apellido" HeaderText="Apellido" />
-            <asp:BoundField DataField="au_municipio" HeaderText="Municipio" />
-            <asp:CommandField ShowEditButton="True" ShowDeleteButton="True"></asp:CommandField>
-        </Columns>
-         </asp:GridView>
+    OnSelectedIndexChanged="GVAuthors_SelectedIndexChanged" 
+        DataKeyNames="au_id">
+    <Columns>
+        <asp:BoundField DataField="au_id" HeaderText="Id" />
+        <asp:BoundField DataField="au_nombre" HeaderText="Nombre" />
+        <asp:BoundField DataField="au_apellido" HeaderText="Apellido" />
+        <asp:BoundField DataField="au_municipio" HeaderText="Municipio" />
+        <asp:CommandField ShowEditButton="True" ShowDeleteButton="True"></asp:CommandField>
+    </Columns>
+</asp:GridView>
+
         </div>
  
 </asp:Content>
-
-
 
 

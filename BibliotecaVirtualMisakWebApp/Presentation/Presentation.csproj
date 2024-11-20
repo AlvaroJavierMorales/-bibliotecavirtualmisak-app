@@ -119,21 +119,57 @@
     <Content Include="bin\System.Threading.Tasks.Extensions.dll" />
     <Content Include="bin\System.Threading.Tasks.Extensions.xml" />
     <Content Include="bin\ZstdSharp.dll" />
-    <Content Include="Index.aspx" />
+    <Content Include="images\Cartilla.jpg" />
+    <Content Include="images\Cartilla1.jpg" />
+    <Content Include="images\fondo.jpg" />
+    <Content Include="images\Libro.jpg" />
+    <Content Include="images\Libro1.jpg" />
+    <Content Include="index.aspx" />
     <Content Include="Main.Master" />
     <Content Include="obj\Debug\Presentation.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\Presentation.dll" />
     <Content Include="obj\Debug\Presentation.pdb" />
+    <Content Include="Recursos\css\bootstrap-grid.css" />
+    <Content Include="Recursos\css\bootstrap-grid.min.css" />
+    <Content Include="Recursos\css\bootstrap-grid.rtl.css" />
+    <Content Include="Recursos\css\bootstrap-grid.rtl.min.css" />
+    <Content Include="Recursos\css\bootstrap-reboot.css" />
+    <Content Include="Recursos\css\bootstrap-reboot.min.css" />
+    <Content Include="Recursos\css\bootstrap-reboot.rtl.css" />
+    <Content Include="Recursos\css\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Recursos\css\bootstrap-utilities.css" />
+    <Content Include="Recursos\css\bootstrap-utilities.min.css" />
+    <Content Include="Recursos\css\bootstrap-utilities.rtl.css" />
+    <Content Include="Recursos\css\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Recursos\css\bootstrap.css" />
+    <Content Include="Recursos\css\bootstrap.min.css" />
+    <Content Include="Recursos\css\bootstrap.rtl.css" />
+    <Content Include="Recursos\css\bootstrap.rtl.min.css" />
+    <Content Include="Recursos\js\bootstrap.bundle.js" />
+    <Content Include="Recursos\js\bootstrap.bundle.min.js" />
+    <Content Include="Recursos\js\bootstrap.esm.js" />
+    <Content Include="Recursos\js\bootstrap.esm.min.js" />
+    <Content Include="Recursos\js\bootstrap.js" />
+    <Content Include="Recursos\js\bootstrap.min.js" />
     <Content Include="Web.config" />
+    <Content Include="WFAuthors.aspx" />
+    <Content Include="WFCategorias.aspx" />
+    <Content Include="WFEditorial.aspx" />
+    <Content Include="WFEncuesta.aspx" />
+    <Content Include="WFGestionUsuarios.aspx" />
+    <Content Include="WFMaterialEducativo.aspx" />
+    <Content Include="WFPurchaseRequest.aspx" />
+    <Content Include="WFRegistroUsuarios.aspx" />
     <Content Include="WFRespuestas.aspx" />
+    <Content Include="WFVisits.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>
@@ -144,11 +180,65 @@
     </Compile>
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WFAuthors.aspx.cs">
+      <DependentUpon>WFAuthors.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFAuthors.aspx.designer.cs">
+      <DependentUpon>WFAuthors.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFCategorias.aspx.cs">
+      <DependentUpon>WFCategorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFCategorias.aspx.designer.cs">
+      <DependentUpon>WFCategorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFEditorial.aspx.cs">
+      <DependentUpon>WFEditorial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFEditorial.aspx.designer.cs">
+      <DependentUpon>WFEditorial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFEncuesta.aspx.cs">
+      <DependentUpon>WFEncuesta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFEncuesta.aspx.designer.cs">
+      <DependentUpon>WFEncuesta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFGestionUsuarios.aspx.cs">
+      <DependentUpon>WFGestionUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFGestionUsuarios.aspx.designer.cs">
+      <DependentUpon>WFGestionUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFMaterialEducativo.aspx.cs">
+      <DependentUpon>WFMaterialEducativo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFMaterialEducativo.aspx.designer.cs">
+      <DependentUpon>WFMaterialEducativo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFPurchaseRequest.aspx.cs">
+      <DependentUpon>WFPurchaseRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFPurchaseRequest.aspx.designer.cs">
+      <DependentUpon>WFPurchaseRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFRegistroUsuarios.aspx.cs">
+      <DependentUpon>WFRegistroUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFRegistroUsuarios.aspx.designer.cs">
+      <DependentUpon>WFRegistroUsuarios.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WFRespuestas.aspx.cs">
       <DependentUpon>WFRespuestas.aspx</DependentUpon>
     </Compile>
     <Compile Include="WFRespuestas.aspx.designer.cs">
       <DependentUpon>WFRespuestas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFVisits.aspx.cs">
+      <DependentUpon>WFVisits.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFVisits.aspx.designer.cs">
+      <DependentUpon>WFVisits.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +261,28 @@
     <Content Include="bin\Data.dll.config" />
     <Content Include="bin\Logic.dll.config" />
     <None Include="packages.config" />
+    <Content Include="Recursos\css\bootstrap-grid.css.map" />
+    <Content Include="Recursos\css\bootstrap-grid.min.css.map" />
+    <Content Include="Recursos\css\bootstrap-grid.rtl.css.map" />
+    <Content Include="Recursos\css\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Recursos\css\bootstrap-reboot.css.map" />
+    <Content Include="Recursos\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Recursos\css\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Recursos\css\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Recursos\css\bootstrap-utilities.css.map" />
+    <Content Include="Recursos\css\bootstrap-utilities.min.css.map" />
+    <Content Include="Recursos\css\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Recursos\css\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Recursos\css\bootstrap.css.map" />
+    <Content Include="Recursos\css\bootstrap.min.css.map" />
+    <Content Include="Recursos\css\bootstrap.rtl.css.map" />
+    <Content Include="Recursos\css\bootstrap.rtl.min.css.map" />
+    <Content Include="Recursos\js\bootstrap.bundle.js.map" />
+    <Content Include="Recursos\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Recursos\js\bootstrap.esm.js.map" />
+    <Content Include="Recursos\js\bootstrap.esm.min.js.map" />
+    <Content Include="Recursos\js\bootstrap.js.map" />
+    <Content Include="Recursos\js\bootstrap.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

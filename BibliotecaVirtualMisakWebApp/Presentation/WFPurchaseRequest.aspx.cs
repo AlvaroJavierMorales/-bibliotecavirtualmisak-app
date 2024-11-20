@@ -1,5 +1,9 @@
-﻿using System;
+﻿
+using Logic;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,11 +14,12 @@ namespace Presentation
     public partial class WFPurchaseRequest : System.Web.UI.Page
     {
         PurchaseRequestLog objPur = new PurchaseRequestLog();
-        UsersLog objPur = new UsersLog();
+        UserLogic objuser = new UserLogic();
 
 
         private int _v_solic_id, _v_tbl_usu_id;
-        private string _v_solic_ticket, _v_solic_fecha;
+        private string _v_solic_ticket;
+        private DateTime _v_solic_fecha;
         private bool executed = false;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -23,10 +28,17 @@ namespace Presentation
             {
 
                 showPurchaseRequest();
-                showPurchaseRequestDDL();
+                showUserDDL();
 
             }
 
+        }
+        private void showUserDDL()
+        {
+            DDLUsers.DataSource = objuser.showUserDDL();
+            DDLUsers.DataValueField = "usu_id";//Nombre de la llave primaria
+            DDLUsers.DataBind();
+            DDLUsers.Items.Insert(0, new ListItem("Seleccione", "0"));
         }
 
         private void showPurchaseRequest()
@@ -38,120 +50,130 @@ namespace Presentation
         }
 
         //Metodo para mostrar los usuarios en el DDL
-        private void showPurchaseRequestDDL()
-        {
-            DDLUsers.DataSource = objPur.showUserDDL();
-            DDLUsers.DataValueField = "usu_id";//Nombre de la llave primaria
-            DDLUsers.DataTextField = "usu_nombre";
-            DDLUsers.DataBind();
-            DDLUsers.Items.Insert(0, "Seleccione");
-        }
+
 
         private void clear()
         {
 
-            TBId.Text = "";
+            HFPurchaId.Value = "";
             TBTicket.Text = "";
             TBFecha.Text = "";
             DDLUsers.SelectedIndex = 0;
 
         }
-        //Evento que permite ocultar columnas en la GridView
-        protected void GVRequests_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.Header)
-            {
-                e.Row.Cells[1].Visible = false;
-                e.Row.Cells[6].Visible = false;
-                e.Row.Cells[8].Visible = false;
-            }
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                e.Row.Cells[1].Visible = false;
-                e.Row.Cells[6].Visible = false;
-                e.Row.Cells[8].Visible = false;
-            }
-        }
 
-        private void showUserDDL()
-        {
-            // Se asigna el origen de datos al DropDownList,
-            // utilizando el método showVisitsDDL de la instancia objCat de la clase VisitsLog.
-            DDLUsers.DataSource = objVis.showUserDDL();
-
-            // Se especifica el campo que se utilizará como valor de cada elemento del DropDownList.
-            DDLUsers.DataValueField = "usu_id";
-
-            // Se especifica el campo que se mostrará como texto para cada elemento del DropDownList.
-            DDLUsers.DataTextField = "usu_correo";
-
-            // Se enlaza el origen de datos con el DropDownList.
-            DDLUsers.DataBind();
-
-            // Se agrega un elemento "Seleccione" al principio del DropDownList para indicar al usuario que elija una visita.
-            DDLUsers.Items.Insert(0, "Seleccione");
-        }
 
         //Evento que se ejecuta al dar clic en el boton Guardar
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-
-            _v_solic_id = TBId.Text;
-            _v_solic_ticket = TBTicket.Text;
-            _v_solic_fecha = TBFecha.Text;
-            _v_tbl_usu_id = Convert.ToInt32(DDLUsers.SelectedValue);
-
-
-            executed = objPur.savePurchaserequest(_v_solic_id, _v_solic_ticket, _v_solic_fecha, _v_tbl_usu_id);
-
-            if (executed)
+            if (DateTime.TryParse(TBFecha.Text, out _v_solic_fecha))
             {
-                LblMsj.Text = "La solicitud de compra se guardo exitosamente!";
-                showPurchaseRequest();
-                clear();
+                _v_solic_ticket = TBTicket.Text;
+                _v_tbl_usu_id = Convert.ToInt32(DDLUsers.SelectedValue);
+
+                executed = objPur.savePurchaserequest(_v_solic_ticket, _v_solic_fecha, _v_tbl_usu_id);
+
+                if (executed)
+                {
+                    LblMsj.Text = "La solicitud de compra se guardo exitosamente!";
+                    showPurchaseRequest();
+                    clear();
+                }
+                else
+                {
+                    LblMsj.Text = "Error al guardar";
+                }
             }
             else
             {
-                LblMsj.Text = "Error al guardar";
+                LblMsj.Text = "Por favor, ingrese una fecha válida.";
             }
+
         }
+
+
+
         //Evento que se ejecuta al dar clic en el boton Actualizar
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {
-
-            _v_solic_id = TBId.Text;
-            _v_solic_ticket = TBTicket.Text;
-            _v_solic_fecha = TBFecha.Text;
-            _v_tbl_usu_id = Convert.ToInt32(DDLUsers.SelectedValue);
-
-
-            executed = objPur.updatePurchaserequest(_v_solic_id, _v_solic_ticket, _v_solic_fecha, _v_tbl_usu_id);
-
-            if (executed)
+            if (DateTime.TryParse(TBFecha.Text, out _v_solic_fecha))
             {
-                LblMsj.Text = "La visita se actualizo exitosamente!";
-                showPurchaseRequest();
+                // Convertir el valor del HiddenField a entero
+                if (!string.IsNullOrEmpty(HFPurchaId.Value) && int.TryParse(HFPurchaId.Value, out _v_solic_id))
+                {
+                    _v_solic_ticket = TBTicket.Text;
+                    _v_tbl_usu_id = Convert.ToInt32(DDLUsers.SelectedValue);
+
+                    executed = objPur.updatePurchaserequest(_v_solic_id, _v_solic_ticket, _v_solic_fecha, _v_tbl_usu_id);
+
+                    if (executed)
+                    {
+                        LblMsj.Text = "¡La solicitud se actualizó exitosamente!";
+                        showPurchaseRequest();
+                    }
+                    else
+                    {
+                        LblMsj.Text = "Error al actualizar";
+                    }
+                }
+                else
+                {
+                    LblMsj.Text = "El ID de la solicitud es inválido. Por favor, verifica los datos.";
+                }
             }
             else
             {
-                LblMsj.Text = "Error al guardar";
+                LblMsj.Text = "Por favor, ingresa una fecha válida.";
             }
         }
-        //Evento que permite pasar los datos de la GridView a los TextBox y DropDowList
+
         protected void GVRequests_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Se asigna el ID de la visita al campo de texto TBId.
-            TBId.Text = GVRequests.SelectedRow.Cells[1].Text;
+            HFPurchaId.Value = GVRequests.SelectedRow.Cells[0].Text;
             // Se asigna la fecha de ingreso de la visita al campo de texto TBfechaingreso.
-            TBTicket.Text = GVRequests.SelectedRow.Cells[2].Text;
+            TBTicket.Text = GVRequests.SelectedRow.Cells[1].Text;
             // Se asigna la duracion de la visita al campo de texto TBDuracion.
-            TBFecha.Text = GVRequests.SelectedRow.Cells[3].Text;
+            TBFecha.Text = GVRequests.SelectedRow.Cells[2].Text;
             // Se asigna el usuario en el DropDownList DDLUser.
-            DDLUser.SelectedValue = GVRequests.SelectedRow.Cells[4].Text;
+            DDLUsers.SelectedValue = GVRequests.SelectedRow.Cells[3].Text;
 
 
         }
+
+        protected void GVRequests_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            try
+            {
+                // Obtener el ID de la solicitud desde las claves de datos del GridView
+                int idVisits = Convert.ToInt32(GVRequests.DataKeys[e.RowIndex].Values[0]);
+
+                // Llamar al método de eliminación con el ID correcto
+                bool executed = objPur.deletePurchaserequest(idVisits);
+
+                if (executed)
+                {
+                    LblMsj.Text = "¡Solicitud eliminada exitosamente!";
+                    showPurchaseRequest(); // Actualizar la vista de solicitudes
+                }
+                else
+                {
+                    LblMsj.Text = "Error al eliminar la solicitud. Inténtalo de nuevo.";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores inesperados
+                LblMsj.Text = "Ocurrió un error al intentar eliminar la solicitud. Por favor, contacta al soporte.";
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+
+
+
     }
+
+
 }
-    }
-}
+

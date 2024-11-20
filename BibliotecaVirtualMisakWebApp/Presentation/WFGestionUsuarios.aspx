@@ -1,9 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="WFGestionUsuarios.aspx.cs" Inherits="Presentation.WFGestionUsuarios" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-       <div>
-        <h2>Modificar Rol de Usuario</h2>
+   <div>
+        <h2>Modificar datos del Usuario</h2>
 
         <asp:HiddenField ID="HFUserId" runat="server" />
         <br />
@@ -74,4 +76,5 @@
         </Columns>
     </asp:GridView>
 </div>
+
 </asp:Content>
