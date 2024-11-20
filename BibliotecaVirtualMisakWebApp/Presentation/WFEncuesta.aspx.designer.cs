@@ -24,6 +24,15 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
+        /// Control TBCode.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField TBCode;
+
+        /// <summary>
         /// Control lblPregunta.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnActualizarEncuesta;
+
+        /// <summary>
+        /// Control btnEliminarEncuesta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEliminarEncuesta;
 
         /// <summary>
         /// Control hdfEncuestaId.

@@ -15,58 +15,31 @@ namespace Presentation
     {
 
         /// <summary>
-        /// Control DropDownList1.
+        /// Control lblMessage.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// Control LabelSurvey.
+        /// Control hdfAnswerId.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelSurvey;
+        protected global::System.Web.UI.WebControls.HiddenField hdfAnswerId;
 
         /// <summary>
-        /// Control ddlEncuesta.
+        /// Control lblRespuesta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEncuesta;
-
-        /// <summary>
-        /// Control LabelQuestion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelQuestion;
-
-        /// <summary>
-        /// Control LitQuestion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitQuestion;
-
-        /// <summary>
-        /// Control LabelResponse.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelResponse;
+        protected global::System.Web.UI.WebControls.Label lblRespuesta;
 
         /// <summary>
         /// Control txtRespuesta.
@@ -78,13 +51,22 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.TextBox txtRespuesta;
 
         /// <summary>
-        /// Control lblMessage.
+        /// Control lblEncuesta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.Label lblEncuesta;
+
+        /// <summary>
+        /// Control ddlEncuesta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEncuesta;
 
         /// <summary>
         /// Control btnGuardar.
@@ -105,13 +87,13 @@ namespace Presentation
         protected global::System.Web.UI.WebControls.Button btnActualizar;
 
         /// <summary>
-        /// Control Label1.
+        /// Control btnEliminar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Button btnEliminar;
 
         /// <summary>
         /// Control gvAnswers.
@@ -121,14 +103,5 @@ namespace Presentation
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvAnswers;
-
-        /// <summary>
-        /// Control hdfAnswerId.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdfAnswerId;
     }
 }
